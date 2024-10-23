@@ -1,27 +1,28 @@
+@props(['tactic'])
+
 <x-primary-layout>
+    @auth()
             <form action="{{url(route('tactics.store'))}}" method="post">
                 @csrf
-                <label for="username">username</label>
-                <input type="text" id="username" name="username">
+                <label for="tactic_name">Tactic name</label>
+                <input type="text" id="tactic_name" name="tactic_name" value="{{ old('tactic_name') }}" required>
 
-                <label for="tactic_name">tactic_name</label>
-                <input type="text" id="tactic_name" name="tactic_name">
+                <label for="line_up">line up</label>
+                <input type="text" id="line_up" name="line_up" value="{{ old('line_up') }}" required>
 
-                <label for="line_up">line_up</label>
-                <input type="text" id="line_up" name="line_up">
+                <label for="pression">Pression</label>
+                <input type="text" id="pression" name="pression" value="{{ old('pression') }}" required>
 
-                <label for="pression">pression</label>
-                <input type="text" id="pression" name="pression">
+                <label for="style">Style</label>
+                <input type="text" id="style" name="style" value="{{ old('style') }}" required>
 
-                <label for="style">style</label>
-                <input type="text" id="style" name="style">
+                <label for="pace">Pace</label>
+                <input type="text" id="pace" name="pace" value="{{ old('pace') }}" required>
 
-                <label for="pace">pace</label>
-                <input type="text" id="pace" name="pace">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" value="{{ old('name') }}" required>
 
-                <label for="description">description</label>
-                <input type="text" id="description" name="description">
-
-                <button type="submit">save</button>
+                <button type="submit">Save</button>
             </form>
+    @endauth
 </x-primary-layout>

@@ -1,3 +1,11 @@
 <x-primary-layout>
-    <p>{{$tactic->username}}</p>
+    <h1>{{$tactic->tactic_name}}</h1>
+    <h2>{{$tactic->username}}</h2>
+    <p>{{$tactic->description}}</p>
+    <ul>
+        <li>{{$tactic->line_up}}</li>
+        <li>{{$tactic->pace}}</li>
+        <li>{{$tactic->style}}</li>
+        <li>{{$tactic->pression}}</li>
+    </ul>
 </x-primary-layout>

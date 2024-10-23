@@ -23,3 +23,8 @@ read toegevoegd van de CRUD met een resource controller
 
 details gemaakt
 create gemaakt
+begin gemaakt aan de edit, hierbij zijn de input velden al ingevuld met de tekst van bepaalde taktiek
+
+**21-10**
+
+verbeteringen met auth

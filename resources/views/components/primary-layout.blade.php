@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+<x-nav></x-nav>
+{{--@include('layouts.navigation')--}}
 {{$slot}}
 </body>
 </html>

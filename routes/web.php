@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TacticsController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', WelcomeController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,5 +22,7 @@ Route::get('/home', function () {
 });
 
 Route::resource('tactics', TacticsController::class);
+
+Route::put('/tactics/{tactic}', [TacticsController::class, 'update'])->name('tactics.update');
 
 require __DIR__.'/auth.php';
