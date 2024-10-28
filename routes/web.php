@@ -25,4 +25,6 @@ Route::resource('tactics', TacticsController::class);
 
 Route::put('/tactics/{tactic}', [TacticsController::class, 'update'])->name('tactics.update');
 
+Route::get('/my-tactics', [TacticsController::class, 'myTactics'])->middleware('auth')->name('tactics.my');
+
 require __DIR__.'/auth.php';

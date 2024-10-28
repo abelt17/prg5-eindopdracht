@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tactic;
+use App\Models\Formation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,12 @@ class TacticsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filteredLineUp = $request->get('line_up');
         $tactics = Tactic::all();
-        return view('tactics.index', compact('tactics'));
+        $formations = Formation::all();
+        return view('tactics.index', compact('tactics', 'formations', 'filteredLineUp'));
     }
 
     /**
@@ -22,7 +25,8 @@ class TacticsController extends Controller
      */
     public function create()
     {
-        return view('tactics.create');
+        $formations = Formation::all();
+        return view('tactics.create', compact('formations'));
     }
 
     /**
@@ -32,6 +36,7 @@ class TacticsController extends Controller
     {
         $tactic = new Tactic();
         $tactic->username = Auth::user()->name;
+        $tactic->user_id = Auth::user()->id;
         $tactic->tactic_name = $request->input('tactic_name');
         $tactic->line_up = $request->input('line_up');
         $tactic->pression = $request->input('pression');
@@ -56,7 +61,8 @@ class TacticsController extends Controller
      */
     public function edit(Tactic $tactic)
     {
-        return view('tactics.edit', compact('tactic'));
+        $formations = Formation::all();
+        return view('tactics.edit', compact('tactic', 'formations'));
     }
 
     /**
@@ -64,20 +70,17 @@ class TacticsController extends Controller
      */
     public function update(Request $request, Tactic $tactic)
     {
-        // Step 1: Validate the incoming data
         $validatedData = $request->validate([
-            'tactic_name' => 'required|string|max:255',
-            'line_up' => 'required|string|max:255',
-            'pression' => 'required|string|max:255',  // Keep as a string since it's stored as a string
-            'style' => 'required|string|max:255',
-            'pace' => 'required|string|max:255',  // Keep as a string since it's stored as a string
-            'description' => 'nullable|string',  // No max length since it's a text field
+            'tactic_name' => 'required|string',
+            'line_up' => 'required|string',
+            'pression' => 'required|string',
+            'style' => 'required|string',
+            'pace' => 'required|string',
+            'description' => 'nullable|string',
         ]);
-        // Step 2: Update the tactic in the database
         $tactic->update($validatedData);
 
-        // Step 3: Redirect back to the list of tactics (or wherever you need)
-        return redirect()->route('tactics.index')->with('success', 'Tactic updated successfully.');
+        return redirect()->route('tactics.index')->with('success', 'Tactic change succesfull!');
 
     }
 
@@ -89,4 +92,12 @@ class TacticsController extends Controller
         $tactic->delete();
         return redirect(route('tactics.index'));
     }
+
+    public function myTactics()
+    {
+        $tactics = Tactic::where('user_id', Auth::id())->get();
+
+        return view('tactics.my-tactics', compact('tactics'));
+    }
+
 }

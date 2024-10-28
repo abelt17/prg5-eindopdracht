@@ -8,7 +8,11 @@
                 <input type="text" id="tactic_name" name="tactic_name" value="{{ old('tactic_name') }}" required>
 
                 <label for="line_up">line up</label>
-                <input type="text" id="line_up" name="line_up" value="{{ old('line_up') }}" required>
+                <select name="line_up" id="line_up">
+                    @foreach($formations as $formation)
+                        <option value="{{$formation->line_up}}">{{$formation->line_up}}</option>
+                    @endforeach
+                </select>
 
                 <label for="pression">Pression</label>
                 <input type="text" id="pression" name="pression" value="{{ old('pression') }}" required>
