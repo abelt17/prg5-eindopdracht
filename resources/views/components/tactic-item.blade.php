@@ -5,4 +5,8 @@
     <p>{{$tactic->description}}</p>
     <a href="{{url(route('tactics.show', $tactic))}}" class="bg-gray-100 p-2">details</a>
     <a href="{{url(route('tactics.edit', $tactic))}}" class="bg-gray-100 p-2">edit</a>
+    <form action="{{url(route('favorites.store', $tactic))}}" method= "post">
+        @csrf
+        <button type="submit">Save</button>
+    </form>
 </div>

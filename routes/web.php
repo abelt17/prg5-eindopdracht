@@ -17,14 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/home', function () {
-   return view('home');
-});
-
 Route::resource('tactics', TacticsController::class);
 
 Route::put('/tactics/{tactic}', [TacticsController::class, 'update'])->name('tactics.update');
 
 Route::get('/my-tactics', [TacticsController::class, 'myTactics'])->middleware('auth')->name('tactics.my');
+
+Route::post('/favorites/{tactic}', [TacticsController::class, 'storeFavorites'])->middleware('auth')->name('favorites.store');
+
+Route::get('/my-favorites', [TacticsController::class, 'myFavorites'])->middleware('auth')->name('favorites.my');
 
 require __DIR__.'/auth.php';

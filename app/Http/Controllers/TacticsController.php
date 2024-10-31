@@ -100,4 +100,25 @@ class TacticsController extends Controller
         return view('tactics.my-tactics', compact('tactics'));
     }
 
+    public function storeFavorites (Tactic $tactic)
+    {
+        $user = Auth::user();
+
+        if ($user->favorites()->where('tactic_id', $tactic->id)->exists()) {
+            $user->favorites()->detach($tactic->id);
+            return redirect()->back()->with('success', 'Tactic removed from favorites!');
+
+        } else {
+            $user->favorites()->attach($tactic->id);
+
+            return redirect()->back()->with('success', 'Tactic saved to favorites!');
+        }
+    }
+
+    public function myFavorites ()
+    {
+        $myFavs = Auth::user()->favorites()->get();
+        return view('tactics.my-favorites', compact('myFavs'));
+    }
+
 }

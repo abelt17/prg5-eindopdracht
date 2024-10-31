@@ -42,3 +42,8 @@ dropdown filter om specifieke tactic voor specifiek opstelling
 
 **28-10**
 pagina gemaakt waarop de gemaakte taktieken van de gebruiker worden weergeven
+
+**31-10**
+favorieten toegevoegd
+extra check toegevoegd dat je alleen een taktiek kan maken als je er 3 hebt opgeslagen
+![img.png](img/img.png)

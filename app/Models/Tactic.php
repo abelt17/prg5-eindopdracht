@@ -23,4 +23,9 @@ class Tactic extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function favoritedBy(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
+
 }

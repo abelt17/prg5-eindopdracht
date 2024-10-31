@@ -1,7 +1,8 @@
 @props(['tactic'])
 
-<x-primary-layout>
+<x-app-layout>
     @auth()
+        @if(\Illuminate\Support\Facades\Auth::user()->favorites()->count() >= 3)
             <form action="{{url(route('tactics.store'))}}" method="post">
                 @csrf
                 <label for="tactic_name">Tactic name</label>
@@ -28,5 +29,9 @@
 
                 <button type="submit">Save</button>
             </form>
+        @else
+            <p>you need to save 3 tactics to gain acces to creating them.</p>
+
+        @endif
     @endauth
-</x-primary-layout>
+</x-app-layout>
