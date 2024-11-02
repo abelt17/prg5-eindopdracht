@@ -24,15 +24,18 @@
         <a href="{{url(route('tactics.create'))}}">create</a>
     @endauth
 
-    <div >
-        @foreach($tactics as $tactic)
-            @if($tactic->line_up == $filteredLineUp)
-                <x-tactic-item :tactic="$tactic">
+    <div>
 
-                </x-tactic-item>
-            @elseif($filteredLineUp == '')
-                <x-tactic-item :tactic="$tactic">
-                </x-tactic-item>
+        @foreach($tactics as $tactic)
+            @if($tactic->active)
+                @if($tactic->line_up == $filteredLineUp)
+                    <x-tactic-item :tactic="$tactic">
+
+                    </x-tactic-item>
+                @elseif($filteredLineUp == '')
+                    <x-tactic-item :tactic="$tactic">
+                    </x-tactic-item>
+                @endif
             @endif
         @endforeach
     </div>

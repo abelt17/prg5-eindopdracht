@@ -4,9 +4,15 @@
     <p>{{$tactic->username}}</p>
     <p>{{$tactic->description}}</p>
     <a href="{{url(route('tactics.show', $tactic))}}" class="bg-gray-100 p-2">details</a>
-    <a href="{{url(route('tactics.edit', $tactic))}}" class="bg-gray-100 p-2">edit</a>
-    <form action="{{url(route('favorites.store', $tactic))}}" method= "post">
-        @csrf
-        <button type="submit">Save</button>
-    </form>
+    @auth()
+        @if(Auth::user()->id === $tactic->user_id)
+            <a href="{{url(route('tactics.edit', $tactic))}}" class="bg-gray-100 p-2">edit</a>
+        @endif
+
+        <form action="{{url(route('favorites.store', $tactic))}}" method="post">
+            @csrf
+            <button type="submit">Save</button>
+        </form>
+
+    @endauth
 </div>

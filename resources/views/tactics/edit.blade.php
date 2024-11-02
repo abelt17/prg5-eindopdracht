@@ -1,6 +1,5 @@
-<x-primary-layout>
-    // error in the action
-    <form action="{{url(route('tactics.update', $tactic->id))}}" method= "post">
+<x-app-layout>
+    <form action="{{url(route('tactics.update', $tactic->id))}}" method="post">
         @csrf
         @method('PUT')
         <p>{{$tactic->username}}</p>
@@ -10,7 +9,8 @@
         <label for="line_up">line up</label>
         <select name="line_up" id="line_up">
             @foreach($formations as $formation)
-                <option value="{{$formation->line_up}}" {{($formation->line_up == $tactic->line_up) ? 'selected' : ''}}>{{$formation->line_up}}</option>
+                <option
+                    value="{{$formation->line_up}}" {{($formation->line_up == $tactic->line_up) ? 'selected' : ''}}>{{$formation->line_up}}</option>
             @endforeach
         </select>
 
@@ -29,4 +29,4 @@
         <button type="submit">save</button>
     </form>
 
-</x-primary-layout>
+</x-app-layout>

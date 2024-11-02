@@ -34,6 +34,15 @@
                         {{ __('My Favorites') }}
                     </x-nav-link>
                 </div>
+                @auth()
+                    @if(\Illuminate\Support\Facades\Auth::user()->role === 'admin')
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('users.see')" :active="request()->routeIs('users.see')">
+                                {{ __('See users') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->

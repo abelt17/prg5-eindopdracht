@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tactic;
 use App\Models\Formation;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,9 @@ class TacticsController extends Controller
      */
     public function show(Tactic $tactic)
     {
+        if (!$tactic->active) {
+            return redirect()->back();
+        }
         return view('tactics.show', compact('tactic'));
     }
 
@@ -61,8 +65,16 @@ class TacticsController extends Controller
      */
     public function edit(Tactic $tactic)
     {
-        $formations = Formation::all();
-        return view('tactics.edit', compact('tactic', 'formations'));
+        if (!$tactic->active) {
+            return redirect()->back();
+        }
+
+        if (Auth::user()->id === $tactic->user_id) {
+            $formations = Formation::all();
+            return view('tactics.edit', compact('tactic', 'formations'));
+        } else {
+            return redirect()->back()->with('success', 'not your tactic!');
+        }
     }
 
     /**
@@ -70,6 +82,12 @@ class TacticsController extends Controller
      */
     public function update(Request $request, Tactic $tactic)
     {
+        $user = Auth::user();
+
+        if ($tactic->user_id !== $user->id) {
+            return redirect()->back();
+        }
+
         $validatedData = $request->validate([
             'tactic_name' => 'required|string',
             'line_up' => 'required|string',
@@ -106,12 +124,10 @@ class TacticsController extends Controller
 
         if ($user->favorites()->where('tactic_id', $tactic->id)->exists()) {
             $user->favorites()->detach($tactic->id);
-            return redirect()->back()->with('success', 'Tactic removed from favorites!');
-
+            return redirect()->back()->with('success', 'Tactic removed from favorites.');
         } else {
             $user->favorites()->attach($tactic->id);
-
-            return redirect()->back()->with('success', 'Tactic saved to favorites!');
+            return redirect()->back()->with('success', 'Tactic saved to favorites.');
         }
     }
 

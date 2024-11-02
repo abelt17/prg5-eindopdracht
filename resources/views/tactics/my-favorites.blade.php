@@ -6,9 +6,11 @@
         <p>Save your first tactic</p>
     @else
         @foreach($myFavs as $tactic)
-            <x-tactic-item :tactic="$tactic">
+            @if($tactic->active)
+                <x-tactic-item :tactic="$tactic">
 
-            </x-tactic-item>
+                </x-tactic-item>
+            @endif
         @endforeach
     @endif
 

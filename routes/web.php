@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TacticsController;
 use App\Http\Controllers\WelcomeController;
+use \App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/', WelcomeController::class);
@@ -26,5 +27,9 @@ Route::get('/my-tactics', [TacticsController::class, 'myTactics'])->middleware('
 Route::post('/favorites/{tactic}', [TacticsController::class, 'storeFavorites'])->middleware('auth')->name('favorites.store');
 
 Route::get('/my-favorites', [TacticsController::class, 'myFavorites'])->middleware('auth')->name('favorites.my');
+
+Route::get('/see-users', [AdminController::class, 'seeUsers'])->middleware('auth')->name('users.see');
+
+Route::post('/see-users/{user}', [AdminController::class, 'toggleUser'])->middleware('auth')->name('users.toggle');
 
 require __DIR__.'/auth.php';
