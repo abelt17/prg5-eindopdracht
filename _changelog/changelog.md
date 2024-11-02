@@ -55,3 +55,7 @@ extra check toegevoegd dat je alleen een taktiek kan maken als je er 3 hebt opge
 admin role toegevoegd die een eigen pagina heeft waarop de users aan en uit gezet kunnen worden zodat hun taktieken niet of wel zichtbaar zijn
 deeplinking veiliger gemaakt
 kan alleen edit knop zien op eigen taktieken
+
+**2-11**
+je kan taktieken nu deleten 
+zoekveld toegevoegd die samen werkt met de dropdown filter.
