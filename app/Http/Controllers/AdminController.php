@@ -22,6 +22,10 @@ class AdminController extends Controller
 
     public function toggleUser(User $user)
     {
+        if(Auth::user()->role !== 'admin') {
+            return redirect(route('tactics.index'));
+        }
+
         $user->active = !$user->active;
 
         $user->save();

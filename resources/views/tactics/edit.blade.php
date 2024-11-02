@@ -28,5 +28,10 @@
 
         <button type="submit">save</button>
     </form>
+    <form action="{{url(route('tactics.destroy', $tactic->id))}}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit">delete</button>
+    </form>
 
 </x-app-layout>

@@ -20,9 +20,11 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('tactics', TacticsController::class);
 
-Route::put('/tactics/{tactic}', [TacticsController::class, 'update'])->name('tactics.update');
+Route::put('/tactics/{tactic}', [TacticsController::class, 'update'])->middleware('auth')->name('tactics.update');
 
 Route::get('/my-tactics', [TacticsController::class, 'myTactics'])->middleware('auth')->name('tactics.my');
+
+Route::post('/tactics/{tactic}', [TacticsController::class, 'destroy'])->middleware('auth')->name('tactics.destroy');
 
 Route::post('/favorites/{tactic}', [TacticsController::class, 'storeFavorites'])->middleware('auth')->name('favorites.store');
 

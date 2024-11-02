@@ -17,9 +17,20 @@
                     value="{{$formation->line_up}}" {{($formation->line_up == $filteredLineUp) ? 'selected' : ''}}>{{$formation->line_up}}</option>
             @endforeach
         </select>
+        <input type="search" class="form-control" placeholder="Find tactic here" name="search"
+               value="{{ request('search') }}">
+
         <button type="submit">Save</button>
 
     </form>
+    {{--    <ul class="list-group mt-3">--}}
+    {{--        @forelse($searchedTactics as $searchedTactic)--}}
+    {{--            <li class="list-group-item">{{ $searchedTactic->tactic_name }}</li>--}}
+    {{--        @empty--}}
+    {{--            <li class="list-group-item list-group-item-danger">Tactic Not Found.</li>--}}
+    {{--        @endforelse--}}
+    {{--    </ul>--}}
+
     @auth()
         <a href="{{url(route('tactics.create'))}}">create</a>
     @endauth
@@ -43,7 +54,3 @@
 </x-app-layout>
 
 
-{{--        <form action="{{url(route('tactics.destroy'))}}" method="post">--}}
-{{--            @method('DELETE')--}}
-{{--            <button type="submit">delete</button>--}}
-{{--        </form>--}}

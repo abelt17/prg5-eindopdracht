@@ -15,10 +15,16 @@ class TacticsController extends Controller
      */
     public function index(Request $request)
     {
+        if (request('search')) {
+            $tactics = Tactic::where('tactic_name', 'like', '%' . request('search') . '%')->get();
+        } else {
+            $tactics = Tactic::all();
+        }
         $filteredLineUp = $request->get('line_up');
-        $tactics = Tactic::all();
         $formations = Formation::all();
         return view('tactics.index', compact('tactics', 'formations', 'filteredLineUp'));
+
+
     }
 
     /**
@@ -26,6 +32,12 @@ class TacticsController extends Controller
      */
     public function create()
     {
+
+        $user = Auth::user();
+        if (!$user->active) {
+            return redirect()->back();
+        }
+
         $formations = Formation::all();
         return view('tactics.create', compact('formations'));
     }
@@ -73,7 +85,7 @@ class TacticsController extends Controller
             $formations = Formation::all();
             return view('tactics.edit', compact('tactic', 'formations'));
         } else {
-            return redirect()->back()->with('success', 'not your tactic!');
+            return redirect()->back();
         }
     }
 
@@ -108,7 +120,7 @@ class TacticsController extends Controller
     public function destroy(Tactic $tactic)
     {
         $tactic->delete();
-        return redirect(route('tactics.index'));
+        return redirect(route('tactics.index'))->with('success', 'tactic succesfully deleted');
     }
 
     public function myTactics()
